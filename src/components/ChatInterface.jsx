@@ -25,6 +25,7 @@ import ClaudeLogo from './ClaudeLogo.jsx';
 import ClaudeStatus from './ClaudeStatus';
 import { MicButton } from './MicButton.jsx';
 import { api } from '../utils/api';
+import { getWebSocketUrl } from '../utils/websocket';
 
 // Safe localStorage utility to handle quota exceeded errors
 const safeLocalStorage = {

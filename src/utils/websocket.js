@@ -1,5 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 
+const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || '';
+
+export function getWebSocketUrl(token) {
+  // إذا تم ضبط متغير البيئة، استخدمه مباشرة
+  if (WS_BASE_URL) {
+    return `${WS_BASE_URL}/ws?token=${encodeURIComponent(token)}`;
+  }
+  // fallback: استخدم نفس الدومين الحالي
+  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const host = window.location.host;
+  return `${protocol}//${host}/ws?token=${encodeURIComponent(token)}`;
+}
+
 export function useWebSocket() {
   const [ws, setWs] = useState(null);
   const [messages, setMessages] = useState([]);
