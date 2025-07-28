@@ -1,4 +1,6 @@
 // Utility function for authenticated API calls
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+
 export const authenticatedFetch = (url, options = {}) => {
   const token = localStorage.getItem('auth-token');
   
@@ -9,8 +11,10 @@ export const authenticatedFetch = (url, options = {}) => {
   if (token) {
     defaultHeaders['Authorization'] = `Bearer ${token}`;
   }
+
+  const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
   
-  return fetch(url, {
+  return fetch(fullUrl, {
     ...options,
     headers: {
       ...defaultHeaders,
@@ -20,28 +24,26 @@ export const authenticatedFetch = (url, options = {}) => {
 };
 
 // API endpoints
-export const api = {
+const api = {
   // Auth endpoints (no token required)
-  auth: {
-    status: () => fetch('/api/auth/status'),
-    login: (username, password) => fetch('/api/auth/login', {
+  status: () => fetch(`${API_BASE_URL}/api/auth/status`),
+  login: (username, password) => fetch(`${API_BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     }),
-    register: (username, password) => fetch('/api/auth/register', {
+  register: (username, password) => fetch(`${API_BASE_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     }),
-    user: () => authenticatedFetch('/api/auth/user'),
-    logout: () => authenticatedFetch('/api/auth/logout', { method: 'POST' }),
-  },
+  user: () => authenticatedFetch('/api/auth/user'),
+  logout: () => authenticatedFetch('/api/auth/logout', { method: 'POST' }),
   
   // Protected endpoints
   config: () => authenticatedFetch('/api/config'),
   projects: () => authenticatedFetch('/api/projects'),
-  sessions: (projectName, limit = 5, offset = 0) => 
+  sessions: (projectName, limit = 10, offset = 0) => 
     authenticatedFetch(`/api/projects/${projectName}/sessions?limit=${limit}&offset=${offset}`),
   sessionMessages: (projectName, sessionId) =>
     authenticatedFetch(`/api/projects/${projectName}/sessions/${sessionId}/messages`),
@@ -79,3 +81,5 @@ export const api = {
       headers: {}, // Let browser set Content-Type for FormData
     }),
 };
+
+export { api, authenticatedFetch };

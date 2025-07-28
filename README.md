@@ -161,8 +161,32 @@ The UI automatically discovers Claude Code projects from `~/.claude/projects/` a
 - **CodeMirror** - Advanced code editor with syntax highlighting
 
 
+## Deploying to Cloudflare Pages
 
+You can deploy the frontend (React/Vite) to Cloudflare Pages easily. Backend features (API, WebSocket, CLI integration) require a separate backend server.
 
+### Steps:
+1. **Build the frontend:**
+   ```bash
+   npm run build
+   ```
+2. **Set Cloudflare Pages build settings:**
+   - Build command: `npm run build`
+   - Output directory: `dist`
+3. **Set environment variables in Cloudflare Pages:**
+   - `VITE_API_BASE_URL` — The full URL of your backend API (e.g. `https://your-backend.example.com`)
+   - `VITE_WS_BASE_URL` — The full URL of your backend WebSocket server (e.g. `wss://your-backend.example.com`)
+
+### Example:
+If your backend is hosted at `https://api.example.com`, set:
+```
+VITE_API_BASE_URL=https://api.example.com
+VITE_WS_BASE_URL=wss://api.example.com
+```
+
+**Note:**
+- All features that require backend (project management, chat, file editing, etc.) will only work if the backend is reachable from the deployed frontend.
+- If you want a fully serverless experience, you must rewrite the backend for Cloudflare Workers (not included).
 
 ### Contributing
 
