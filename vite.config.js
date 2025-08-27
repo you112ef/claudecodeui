@@ -23,7 +23,15 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     build: {
-      outDir: 'dist'
+      outDir: 'dist',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            ui: ['lucide-react', 'class-variance-authority', 'clsx', 'tailwind-merge']
+          }
+        }
+      }
     }
   }
 })
