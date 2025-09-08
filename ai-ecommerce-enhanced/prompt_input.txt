@@ -1,0 +1,11 @@
+Create a fully functional AI-powered e-commerce website called "TechShop" with:
+- Homepage
+- Products page listing all products
+- Product detail pages
+- About page
+- Contact page with real email
+- Privacy, Terms, Refund pages
+- Google Merchant feed generator
+- Custom domain support
+- AI automation for future products and updates
+- Modern UI with TailwindCSS
