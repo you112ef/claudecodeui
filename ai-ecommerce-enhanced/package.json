@@ -1,0 +1,8 @@
+{
+  "name": "ai-ecommerce-enhanced",
+  "private": true,
+  "scripts": {
+    "dev": "python3 generate_feed.py",
+    "feed": "python3 generate_feed.py"
+  }
+}

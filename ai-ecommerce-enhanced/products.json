@@ -1,0 +1,20 @@
+[
+  {
+    "id": "p001",
+    "name": "Wireless Headphones",
+    "price": "29.99",
+    "currency": "USD",
+    "image": "/public/images/headphones.jpg",
+    "description": "High quality wireless headphones with noise cancellation.",
+    "category": "Audio"
+  },
+  {
+    "id": "p002",
+    "name": "Smart Watch",
+    "price": "49.99",
+    "currency": "USD",
+    "image": "/public/images/watch.jpg",
+    "description": "Track fitness, sleep, and notifications.",
+    "category": "Wearables"
+  }
+]
